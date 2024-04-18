@@ -39,7 +39,7 @@ int main()
         return 1;
     }
 
-    struct Aluno aluno;
+    Aluno aluno;
     while (fscanf(Arquivo_entrada, "%[^,],%*[^,],%*[^,],%lf,%lf\n", aluno.nome, &aluno.n1, &aluno.n2) == 3)
     {
         float media = Media(aluno);
