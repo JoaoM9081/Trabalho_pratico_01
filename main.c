@@ -4,7 +4,7 @@
 typedef struct Aluno
 {
     char nome[50];
-    float n1, n2; 
+    float n1, n2;
 } Aluno;
 
 // Função para calcular a média dos alunos
@@ -26,25 +26,9 @@ char *Situacao_Final(float media)
     }
 }
 
-int main()
+// Função para processar os dados do arquivo de entrada
+void Processar_Dados(FILE *Arquivo_entrada, FILE *Arquivo_saida)
 {
-    // Abrindo os arquivos de entrada e saída
-    FILE *Arquivo_entrada = fopen("DadosEntrada.csv", "r");
-    FILE *Arquivo_saida = fopen("SituacaoFinal.csv", "w");
-
-    // Verificando se os arquivos foram abertos corretamente
-    if (Arquivo_entrada == NULL)
-    {
-        printf("Erro ao abrir o arquivos de entrada.\n");
-        return 1;
-    }
-
-    if (Arquivo_saida == NULL)
-    {
-        printf("Erro ao abrir o arquivos de saida.\n");
-        return 1;
-    }
-
     Aluno aluno;
     char linha[200];
     char telefone[20];
@@ -53,19 +37,37 @@ int main()
     // Lendo os dados do arquivo de entrada
     while (fgets(linha, sizeof(linha), Arquivo_entrada))
     {
-        // Lendo os dados do aluno do arquivo de entrada
         if (sscanf(linha, "%[^,],%[^,],%[^,],%f,%f", aluno.nome, telefone, curso, &aluno.n1, &aluno.n2) == 5)
         {
-            // Calculando a média e a situação final do aluno
             float media = Media(aluno);
             char *situacao = Situacao_Final(media);
 
-            // Escrevendo os dados do aluno no arquivo de saída
+            // Imprimindo dados no arquivo de saída
             fprintf(Arquivo_saida, "%s, %.2lf, %s\n", aluno.nome, media, situacao);
         }
     }
+}
 
-    // Fechando os arquivos
+int main()
+{
+    FILE *Arquivo_entrada = fopen("DadosEntrada.csv", "r");
+    FILE *Arquivo_saida = fopen("SituacaoFinal.csv", "w");
+
+    // Verificação de erro na abertura dos arquivos
+    if (Arquivo_entrada == NULL)
+    {
+        printf("Erro ao abrir o arquivo de entrada.\n");
+        return 1;
+    }
+
+    if (Arquivo_saida == NULL)
+    {
+        printf("Erro ao abrir o arquivo de saída.\n");
+        return 1;
+    }
+
+    Processar_Dados(Arquivo_entrada, Arquivo_saida);
+
     fclose(Arquivo_entrada);
     fclose(Arquivo_saida);
 
