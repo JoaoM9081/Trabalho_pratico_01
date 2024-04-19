@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Estrutura para armazenar os dados de um aluno
 typedef struct Aluno
 {
     char nome[50];
+    char telefone[20];
+    char curso[50];
     float n1, n2;
 } Aluno;
 
@@ -40,11 +41,15 @@ int main()
     }
 
     Aluno aluno;
-    while (fscanf(Arquivo_entrada, "%[^,],%*[^,],%*[^,],%lf,%lf\n", aluno.nome, &aluno.n1, &aluno.n2) == 3)
+    int count = 0;
+    while (fscanf(Arquivo_entrada, "%[^,],%[^,],%[^,],%f,%f\n", aluno.nome, aluno.telefone, aluno.curso, &aluno.n1, &aluno.n2) == 5)
     {
         float media = Media(aluno);
         const char *situacao = Situacao_Final(media);
-        fprintf(Arquivo_saida, "%s, %.2lf, %s\n", aluno.nome, media, situacao);
+        fprintf(Arquivo_saida, "%s,%.2f,%s\n", aluno.nome, media, situacao);
+        fflush(Arquivo_saida); // Força o sistema a escrever qualquer dado não escrito no arquivo
+        count++;
+        printf("Processado aluno %d: %s\n", count, aluno.nome); // Imprime o nome do aluno que foi processado
     }
 
     fclose(Arquivo_entrada);
