@@ -40,11 +40,11 @@ int main()
     }
 
     Aluno aluno;
-    while (fscanf(Arquivo_entrada, "%[^,],%*[^,],%*[^,],%lf,%lf\n", aluno.nome, &aluno.n1, &aluno.n2) == 3)
+    while (fscanf(Arquivo_entrada, " %[^,],%*[^,],%*[^,],%f,%f\n", aluno.nome, &aluno.n1, &aluno.n2) == 3)
     {
         float media = Media(aluno);
         const char *situacao = Situacao_Final(media);
-        fprintf(Arquivo_saida, "%s, %.2lf, %s\n", aluno.nome, media, situacao);
+        fprintf(Arquivo_saida, "%s, %.2f, %s\n", aluno.nome, media, situacao);
     }
 
     fclose(Arquivo_entrada);
