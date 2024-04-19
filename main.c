@@ -10,7 +10,7 @@ typedef struct Aluno
 // Função para calcular a média dos alunos
 float Media(Aluno aluno)
 {
-    return (aluno.n1 + aluno.n2) / 2.0;
+    return (aluno.n1 + aluno.n2) / 2;
 }
 
 // Função para determinar a situação final dos alunos
@@ -33,9 +33,16 @@ int main()
     FILE *Arquivo_saida = fopen("SituacaoFinal.csv", "w");
 
     // Verificando se os arquivos foram abertos corretamente
-    if (Arquivo_entrada == NULL || Arquivo_saida == NULL)
+    if (Arquivo_entrada == NULL)
     {
-        printf("Erro ao abrir os arquivos.\n");
+        printf("Erro ao abrir o arquivos de entrada.\n");
+        return 1;
+    }
+
+    if (Arquivo_saida == NULL)
+    {
+        printf("Erro ao abrir o arquivos de saida.\n");
+        return 1;
     }
 
     Aluno aluno;
