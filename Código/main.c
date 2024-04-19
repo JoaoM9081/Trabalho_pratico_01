@@ -1,23 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct Aluno
 {
     char nome[50];
-    char telefone[20];
-    char curso[50];
-    float n1, n2;
+    float n1, n2; 
 } Aluno;
 
-// Função para calcular a média das notas de um aluno
+// Função para calcular a média dos alunos
 float Media(Aluno aluno)
 {
     return (aluno.n1 + aluno.n2) / 2.0;
 }
 
-// Função para determinar a situação do aluno (APROVADO ou REPROVADO)
-const char *Situacao_Final(float media)
+// Função para determinar a situação final dos alunos
+char *Situacao_Final(float media)
 {
     if (media >= 7.0)
     {
@@ -31,27 +28,37 @@ const char *Situacao_Final(float media)
 
 int main()
 {
+    // Abrindo os arquivos de entrada e saída
     FILE *Arquivo_entrada = fopen("DadosEntrada.csv", "r");
     FILE *Arquivo_saida = fopen("SituacaoFinal.csv", "w");
 
+    // Verificando se os arquivos foram abertos corretamente
     if (Arquivo_entrada == NULL || Arquivo_saida == NULL)
     {
         printf("Erro ao abrir os arquivos.\n");
-        return 1;
     }
 
     Aluno aluno;
-    int count = 0;
-    while (fscanf(Arquivo_entrada, "%[^,],%[^,],%[^,],%f,%f\n", aluno.nome, aluno.telefone, aluno.curso, &aluno.n1, &aluno.n2) == 5)
+    char linha[200];
+    char telefone[20];
+    char curso[50];
+
+    // Lendo os dados do arquivo de entrada
+    while (fgets(linha, sizeof(linha), Arquivo_entrada))
     {
-        float media = Media(aluno);
-        const char *situacao = Situacao_Final(media);
-        fprintf(Arquivo_saida, "%s,%.2f,%s\n", aluno.nome, media, situacao);
-        fflush(Arquivo_saida); // Força o sistema a escrever qualquer dado não escrito no arquivo
-        count++;
-        printf("Processado aluno %d: %s\n", count, aluno.nome); // Imprime o nome do aluno que foi processado
+        // Lendo os dados do aluno do arquivo de entrada
+        if (sscanf(linha, "%[^,],%[^,],%[^,],%f,%f", aluno.nome, telefone, curso, &aluno.n1, &aluno.n2) == 5)
+        {
+            // Calculando a média e a situação final do aluno
+            float media = Media(aluno);
+            char *situacao = Situacao_Final(media);
+
+            // Escrevendo os dados do aluno no arquivo de saída
+            fprintf(Arquivo_saida, "%s, %.2lf, %s\n", aluno.nome, media, situacao);
+        }
     }
 
+    // Fechando os arquivos
     fclose(Arquivo_entrada);
     fclose(Arquivo_saida);
 
