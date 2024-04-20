@@ -10,8 +10,6 @@ Este é um projeto desenvolvido para a disciplina de **Estrutura de Dados**. O o
 
 ## Arquivos
 - `main.c`: Arquivo principal com o código-fonte do programa.
-- `.vscode`: Pasta com configurações específicas para o Visual Studio Code.
-- `build`: Pasta criada pelo compilador, contendo os arquivos gerados durante a compilação.
 - Arquivos de Entrada e Saída:
     - **Entrada (`DadosEntrada.csv`)**: Contém os dados dos alunos.
     - **Saída (`SituacaoFinal.csv`)**: Resultado do programa.
@@ -19,10 +17,9 @@ Este é um projeto desenvolvido para a disciplina de **Estrutura de Dados**. O o
 ## Execução
 1. Baixe e instale o Visual Studio Code.
 2. Instale as extensões **C/C++** e **Code Runner** no VSCode.
-3. Baixe e configure o MinGW.
 4. Clone este repositório:
     ```bash
     git clone https://github.com/JoaoM9081/Trabalho_pratico_01.git
     ```
 5. Abra o arquivo `main.c` no VSCode.
-6. Pressione `F6` para compilar e gerar o executável.
+6. Execulte o programa para compilar e gerar o executável.
